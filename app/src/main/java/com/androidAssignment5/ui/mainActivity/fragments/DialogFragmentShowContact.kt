@@ -27,8 +27,8 @@ class DialogFragmentShowContact :
         contact.apply {
             binding.run {
                 tvShowContactName.text = getString(R.string.showContact_name, contact.name)
-                if (contact.imageURL != "null") {
-                    Glide.with(ivShowContactPhoto).load(contact.imageURL).circleCrop()
+                if (contact.image != "null") {
+                    Glide.with(ivShowContactPhoto).load(contact.image).circleCrop()
                         .into(ivShowContactPhoto)
                 } else {
                     ivShowContactPhoto.setImageResource(R.drawable.icon_default_photo)
@@ -39,11 +39,11 @@ class DialogFragmentShowContact :
                 }
                 tvShowContactCareer.text =
                     getString(R.string.showContact_career, contact.career)
-                tvShowContactEmail.text = getString(R.string.showContact_email, contact.eMail)
+                tvShowContactEmail.text = getString(R.string.showContact_email, contact.email)
                 tvShowContactPhone.text = getString(R.string.showContact_phone, contact.phone)
                 tvShowContactAddress.text =
                     getString(R.string.showContact_address, contact.address)
-                tvShowContactBirth.text = getString(R.string.showContact_birth, contact.birth)
+                tvShowContactBirth.text = getString(R.string.showContact_birth, contact.email)
             }
         }
 

@@ -40,10 +40,10 @@ class ContactsRecycleViewAdapter(private val contactClickListener: ContactClickL
             with(contact) {
                 tvContactName.text = name
                 tvContactCareer.text = career
-                if (imageURL == "null") {
+                if (image == "null") {
                     ivContactPhoto.setImageResource(R.drawable.icon_default_photo)
                 } else {
-                    ivContactPhoto.addCircularImage(imageURL)
+                    ivContactPhoto.addCircularImage(image)
                 }
                 IvRemoveContact.setOnClickListener {
                     contactClickListener.onDeleteClick(this)

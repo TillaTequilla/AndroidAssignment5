@@ -5,12 +5,13 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Contact(
-    val imageURL: String,
+    val image: String,
     val name: String,
+    val password: String,
     val career: String = "",
-    val eMail: String = "",
+    val email: String = "",
     val phone: String = "",
     val address: String = "",
-    val birth: String = "",
+    val birthday: String = "",
     val id: String = name.first() + ((0..50000).random()).toString() + name.last()
 ) : Parcelable
