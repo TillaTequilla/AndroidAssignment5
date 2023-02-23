@@ -55,7 +55,7 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>(FragmentAuthBinding::infl
                 }
             }
             btnRegister.setOnClickListener {
-                findNavController()
+                findNavController().navigate(AuthFragmentDirections.actionAuthFragmentToSignUpFragment())
             }
         }
     }
