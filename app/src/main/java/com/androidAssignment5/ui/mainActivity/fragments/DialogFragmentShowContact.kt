@@ -9,7 +9,6 @@ import com.androidAssignment5.architecture.BaseDialogFragment
 import com.androidAssignment5.databinding.FragmentShowContactBinding
 import com.androidAssignment5.extension.setSizePercent
 import com.androidAssignment5.model.Contact
-import com.androidAssignment5.ui.authActivity.ContactsViewModel
 import com.androidAssignment5.util.Constance
 
 class DialogFragmentShowContact :

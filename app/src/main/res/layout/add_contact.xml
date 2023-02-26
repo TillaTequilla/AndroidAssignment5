@@ -1,209 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_addContact_horizontal_top"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.30" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_addContact_horizontal_bot"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.90" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clContact_data"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewAddContact"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/btnSaveContact"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/gl_addContact_horizontal_top">
-
-        <ScrollView
-            android:id="@+id/svContact_data"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginHorizontal="@dimen/indent_small"
-            android:layout_marginTop="@dimen/indent_min"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/llContact_data"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:verticalScrollbarPosition="right">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tilUsername_new"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/addContact_hint_username"
-                    android:theme="@style/ThemeOverlay.App.TextInputLayoutForAddContact"
-                    app:expandedHintEnabled="false"
-                    app:hintTextAppearance="@style/TextLabel">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etUsername_new"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@android:color/transparent"
-                        android:maxLines="1"
-                        android:textColor="@color/black" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tilCareer_new"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dialogFragment_addContact_tiIOfInformation_marginTop"
-                    android:hint="@string/addContact_hint_career"
-                    android:theme="@style/ThemeOverlay.App.TextInputLayoutForAddContact"
-                    app:expandedHintEnabled="false"
-                    app:hintTextAppearance="@style/TextLabel">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etCareer_new"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@android:color/transparent"
-                        android:maxLines="1"
-                        android:textColor="@color/black" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tilEmail_new"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dialogFragment_addContact_tiIOfInformation_marginTop"
-                    android:hint="@string/addContact_hint_email"
-                    android:theme="@style/ThemeOverlay.App.TextInputLayoutForAddContact"
-                    app:expandedHintEnabled="false"
-                    app:hintTextAppearance="@style/TextLabel">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etEmail_new"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@android:color/transparent"
-                        android:inputType="textEmailAddress"
-                        android:maxLines="1"
-                        android:textColor="@color/black" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tilPhone_new"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dialogFragment_addContact_tiIOfInformation_marginTop"
-                    android:hint="@string/addContact_hint_phone"
-                    android:theme="@style/ThemeOverlay.App.TextInputLayoutForAddContact"
-                    app:expandedHintEnabled="false"
-                    app:hintTextAppearance="@style/TextLabel">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etPhone_new"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@android:color/transparent"
-                        android:maxLines="1"
-                        android:textColor="@color/black" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dialogFragment_addContact_tiIOfInformation_marginTop"
-                    android:hint="@string/addContact_hint_address"
-                    android:theme="@style/ThemeOverlay.App.TextInputLayoutForAddContact"
-                    app:expandedHintEnabled="false"
-                    app:hintTextAppearance="@style/TextLabel">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etAddress_new"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@android:color/transparent"
-                        android:maxLines="1"
-                        android:textColor="@color/black" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tilDateOfBirth_new"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dialogFragment_addContact_tiIOfInformation_marginTop"
-                    android:hint="@string/addContact_hint_DareOfBirth"
-                    android:theme="@style/ThemeOverlay.App.TextInputLayoutForAddContact"
-                    app:expandedHintEnabled="false"
-                    app:hintTextAppearance="@style/TextLabel">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etDateOfBirth_new"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@android:color/transparent"
-                        android:maxLines="1"
-                        android:textColor="@color/black" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </ScrollView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clPhoto_new"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/profile_background"
-        app:layout_constraintBottom_toBottomOf="@id/gl_addContact_horizontal_top"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/ivAddContact_photo"
-            android:layout_width="@dimen/dialogFragment_addContact_ivContactPhoto_size"
-            android:layout_height="@dimen/dialogFragment_addContact_ivContactPhoto_size"
-            android:src="@drawable/icon_default_photo"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivAddContact_choosePhoto"
-            android:layout_width="@dimen/dialogFragment_addContact_ivChoosePhoto_size"
-            android:layout_height="@dimen/dialogFragment_addContact_ivChoosePhoto_size"
-            android:layout_marginStart="@dimen/indent_small"
-            app:layout_constraintBottom_toBottomOf="@id/ivAddContact_photo"
-            app:layout_constraintStart_toEndOf="@id/ivAddContact_photo"
-            app:layout_constraintTop_toTopOf="@id/ivAddContact_photo"
-            app:srcCompat="@drawable/icon_add_photo" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnSaveContact"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dialogFragment_addContact_bSave_height"
-        android:layout_marginBottom="@dimen/indent_normal"
-        android:backgroundTint="@color/contacts_contacts"
-        android:text="@string/addContact_bSave_text"
-        android:textColor="@color/white"
+        android:layout_margin="8dp"
+        tools:listitem="@layout/recycleview_add_contact_item"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clContacts_top"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clContacts_top"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHeight_percent="0.22"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/profile_background">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivContact_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/icon_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvContacts"
+            app:layout_constraintBottom_toBottomOf="@id/tvContacts"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvContacts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Users"
+            android:textSize="24sp"
+            android:fontFamily="@font/semi_bold"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivContacts_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/tvContacts"
+            app:layout_constraintBottom_toBottomOf="@id/tvContacts"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/icon_magnifying_glass"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivMultiselect_trash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/icon_multiselect_trash"
+        android:visibility="gone"
+        android:layout_marginEnd="@dimen/indent_big"
+        android:layout_marginBottom="@dimen/indent_big"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,7 +13,7 @@ import com.androidAssignment5.extension.addCircularImage
 import com.androidAssignment5.model.Contact
 import com.androidAssignment5.util.DiffUtil
 
-class ContactsRecycleViewAdapter(private val contactClickListener: ContactClickListener) :
+class ContactsRecycleViewAdapter(private val contactClickListener: ContactsClickListener) :
     ListAdapter<Contact, ContactsRecycleViewAdapter.Holder>(DiffUtil) {
 
     lateinit var selectionTracker: SelectionTracker<Contact>

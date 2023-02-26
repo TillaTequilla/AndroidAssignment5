@@ -5,7 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.androidAssignment5.App
 import com.androidAssignment5.util.Constance
 import com.androidAssignment5.util.PreferenceHelper
 import com.androidAssignment5.R
@@ -18,6 +20,7 @@ import com.androidAssignment5.util.NameParser
 class AuthFragment : BaseFragment<FragmentAuthBinding>(FragmentAuthBinding::inflate) {
     private lateinit var preferenceHelper: PreferenceHelper
 
+    private val authFragmentViewModel: AuthFragmentViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         preferenceHelper = PreferenceHelper(this.requireActivity())
@@ -43,24 +46,57 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>(FragmentAuthBinding::infl
             }
 
             tvSignIn.setOnClickListener {
+                val email = binding.etEmail.text.toString()
+                val password = binding.etPassword.text.toString()
                 if (cbRememberMe.isChecked) {
                     rememberInformation()
                 } else preferenceHelper.clear()
-                if (checkForInput()) {
-                    val name: String = getName()
-                    val intent = Intent(requireActivity(), MainActivity::class.java)
-                    intent.putExtra(Constance.INTENT_NAME, name)
-                    startActivity(intent)
-                    requireActivity().finish()
+                val intent = Intent(requireActivity(), MainActivity::class.java)
+                authFragmentViewModel.loginUser(
+                    email,
+                    password
+                )
+                authFragmentViewModel.error.observe(viewLifecycleOwner) {
+                    checkForInput()
+                }
+                authFragmentViewModel.response.observe(viewLifecycleOwner) {
+                    changeActivity(intent)
                 }
             }
             btnRegister.setOnClickListener {
-                findNavController().navigate(AuthFragmentDirections.actionAuthFragmentToSignUpFragment())
+                val email = binding.etEmail.text.toString()
+                val password = binding.etPassword.text.toString()
+                if (tilEmail.error == null && tilPassword.error == null
+                    && etEmail.text!!.isNotEmpty() && etPassword.text!!.isNotEmpty()
+                ) {
+                    findNavController().navigate(
+                        AuthFragmentDirections.actionAuthFragmentToSignUpFragment(
+                            email,
+                            password
+                        )
+                    )
+                }
             }
         }
     }
 
+    private fun changeActivity(intent: Intent) {
+        intent.putExtra(Constance.INTENT_ID, authFragmentViewModel.response.value?.data?.user?.id)
+        intent.putExtra(
+            Constance.INTENT_ACCESS_TOKEN,
+            authFragmentViewModel.response.value?.data?.accessToken
+        )
+        startActivity(intent)
+        requireActivity().finish()
+    }
+
     private fun checkForInput(): Boolean {
+        if (authFragmentViewModel.error.value == "HTTP 401 Unauthorized") {
+            with(binding) {
+                tilEmail.error = "Can`t find user"
+                tilPassword.error = "Can`t find user"
+            }
+        }
         with(binding) {
             return tilEmail.error == null && tilPassword.error == null
                     && etEmail.text!!.isNotEmpty() && etPassword.text!!.isNotEmpty()

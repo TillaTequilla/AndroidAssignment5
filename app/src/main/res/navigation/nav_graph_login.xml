@@ -18,7 +18,14 @@
         android:id="@+id/signUpFragment"
         android:name="com.androidAssignment5.ui.authActivity.SignUpFragment"
         android:label="fragment_sign_up"
-        tools:layout="@layout/fragment_sign_up" />
+        tools:layout="@layout/fragment_sign_up" >
+        <argument
+            android:name="email"
+            app:argType="string" />
+        <argument
+            android:name="password"
+            app:argType="string" />
+    </fragment>
 
 
 </navigation>

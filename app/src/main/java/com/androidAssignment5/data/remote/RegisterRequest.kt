@@ -1,16 +1,12 @@
 package com.androidAssignment5.data.remote
 
 data class RegisterRequest(
+    val email: String,
     val password: String,
-    val name: String,
-    val phone: String = "",
-    val address: String = "",
-    val career: String = "",
-    val birthday: String = "",
-    val facebook: String = "",
-    val instagram: String = "",
-    val twitter: String = "",
-    val linkedin: String = "",
-    val image: String = "",
-) {
-}
+    val name: String? = null,
+    val phone: String? = null,
+    val address: String? = null,
+    val career: String? = null,
+    val image: String? = null,
+    val birthday: String? = null
+)

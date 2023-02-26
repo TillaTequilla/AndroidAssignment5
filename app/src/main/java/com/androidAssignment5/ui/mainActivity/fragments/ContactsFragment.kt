@@ -4,22 +4,18 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.setFragmentResultListener
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.selection.*
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.androidAssignment5.ui.mainActivity.adapters.ContactsRecycleViewAdapter
 import com.androidAssignment5.architecture.BaseFragment
-import com.androidAssignment5.util.Constance.ADD_CONTACT_RESULT_KEY
 import com.androidAssignment5.model.Contact
-import com.androidAssignment5.ui.authActivity.ContactsViewModel
 import com.androidAssignment5.R
 import com.androidAssignment5.util.Constance
 import com.androidAssignment5.util.SwipeToDeleteCallback
 import com.androidAssignment5.databinding.FragmentContactsBinding
-import com.androidAssignment5.ui.mainActivity.adapters.ContactClickListener
+import com.androidAssignment5.ui.mainActivity.adapters.ContactsClickListener
 import com.androidAssignment5.util.ContactLookUp
 import com.androidAssignment5.util.KeyProvider
 import com.google.android.material.snackbar.Snackbar
@@ -30,7 +26,7 @@ class ContactsFragment : BaseFragment<FragmentContactsBinding>(FragmentContactsB
     lateinit var tracker: SelectionTracker<Contact>
     private val contactViewModel: ContactsViewModel by activityViewModels()
     private val adapter: ContactsRecycleViewAdapter by lazy {
-        ContactsRecycleViewAdapter(contactClickListener = object : ContactClickListener {
+        ContactsRecycleViewAdapter(contactClickListener = object : ContactsClickListener {
             override fun onDeleteClick(contact: Contact) {
                 contactViewModel.deleteContact(contact)
                 undoUserDeletion(binding.root, contact)
@@ -48,11 +44,15 @@ class ContactsFragment : BaseFragment<FragmentContactsBinding>(FragmentContactsB
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val id = requireActivity().intent.getStringExtra(Constance.INTENT_ID).toString()
+        val token =
+            requireActivity().intent.getStringExtra(Constance.INTENT_ACCESS_TOKEN).toString()
 
         setRecyclerView()
         setClickListeners()
         addTracker()
         setObservers()
+        contactViewModel.getUsers(id, "Bearer " + token)
     }
 
     private fun setClickListeners() {
@@ -61,7 +61,7 @@ class ContactsFragment : BaseFragment<FragmentContactsBinding>(FragmentContactsB
         }
 
         binding.ivContactBack.setOnClickListener {
-            findNavController().popBackStack()
+//            findNavController().popBackStack()
         }
 
         binding.tvAddContact.setOnClickListener {
@@ -73,7 +73,7 @@ class ContactsFragment : BaseFragment<FragmentContactsBinding>(FragmentContactsB
     private fun setRecyclerView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this.context)
         binding.recyclerView.adapter = adapter
-        setFragmentListener()
+//        setFragmentListener()
         val swipeToDeleteCallback = object : SwipeToDeleteCallback() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 deleteContact(viewHolder.absoluteAdapterPosition)
@@ -108,12 +108,12 @@ class ContactsFragment : BaseFragment<FragmentContactsBinding>(FragmentContactsB
     }
 
 
-    private fun setFragmentListener() {
-        setFragmentResultListener(ADD_CONTACT_RESULT_KEY) { _, bundle ->
-            val result = bundle.getParcelable<Contact>(Constance.CONTACT_SERIALIZABLE)
-            addContact(result as Contact)
-        }
-    }
+//    private fun setFragmentListener() {
+//        setFragmentResultListener(ADD_CONTACT_RESULT_KEY) { _, bundle ->
+//            val result = bundle.getParcelable<Contact>(Constance.CONTACT_SERIALIZABLE)
+//            addContact(result as Contact)
+//        }
+//    }
 
     private fun addContact(contact: Contact) {
         contactViewModel.addContact(contact)
