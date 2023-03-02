@@ -7,7 +7,6 @@ import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.androidAssignment5.App
 import com.androidAssignment5.util.Constance
 import com.androidAssignment5.util.PreferenceHelper
 import com.androidAssignment5.R
@@ -30,27 +29,15 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>(FragmentAuthBinding::infl
     }
 
     private fun listenerInitialization() {
+        setEditTextChangeListener()
+        setLoginRegisterListener()
+    }
+
+    private fun setLoginRegisterListener() {
         with(binding) {
-            etPassword.doAfterTextChanged { text ->
-                if (text!!.length < 5) {
-                    tilPassword.error = getString(R.string.login_error_password_few_symbols)
-                } else if (!text.contains("\\d".toRegex())) {
-                    tilPassword.error = getString(R.string.login_error_password_number)
-                } else tilPassword.error = null
-            }
-
-            etEmail.doAfterTextChanged { text ->
-                if (NameParser.validEmail(text.toString())) {
-                    tilEmail.error = null
-                } else tilEmail.error = getString(R.string.login_error_email_valid_email)
-            }
-
             tvSignIn.setOnClickListener {
                 val email = binding.etEmail.text.toString()
                 val password = binding.etPassword.text.toString()
-                if (cbRememberMe.isChecked) {
-                    rememberInformation()
-                } else preferenceHelper.clear()
                 val intent = Intent(requireActivity(), MainActivity::class.java)
                 authFragmentViewModel.loginUser(
                     email,
@@ -62,6 +49,9 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>(FragmentAuthBinding::infl
                 authFragmentViewModel.response.observe(viewLifecycleOwner) {
                     changeActivity(intent)
                 }
+                if (cbRememberMe.isChecked) {
+                    rememberInformation()
+                } else preferenceHelper.clear()
             }
             btnRegister.setOnClickListener {
                 val email = binding.etEmail.text.toString()
@@ -80,7 +70,26 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>(FragmentAuthBinding::infl
         }
     }
 
+    private fun setEditTextChangeListener() {
+        with(binding) {
+            etPassword.doAfterTextChanged { text ->
+                if (text!!.length < 5) {
+                    tilPassword.error = getString(R.string.login_error_password_few_symbols)
+                } else if (!text.contains("\\d".toRegex())) {
+                    tilPassword.error = getString(R.string.login_error_password_number)
+                } else tilPassword.error = null
+            }
+
+            etEmail.doAfterTextChanged { text ->
+                if (NameParser.validEmail(text.toString())) {
+                    tilEmail.error = null
+                } else tilEmail.error = getString(R.string.login_error_email_valid_email)
+            }
+        }
+    }
+
     private fun changeActivity(intent: Intent) {
+        intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         intent.putExtra(Constance.INTENT_ID, authFragmentViewModel.response.value?.data?.user?.id)
         intent.putExtra(
             Constance.INTENT_ACCESS_TOKEN,
@@ -93,8 +102,8 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>(FragmentAuthBinding::infl
     private fun checkForInput(): Boolean {
         if (authFragmentViewModel.error.value == "HTTP 401 Unauthorized") {
             with(binding) {
-                tilEmail.error = "Can`t find user"
-                tilPassword.error = "Can`t find user"
+                tilEmail.error = getString(R.string.login_error_cant_find_user)
+                tilPassword.error = getString(R.string.login_error_cant_find_user)
             }
         }
         with(binding) {
@@ -139,10 +148,6 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>(FragmentAuthBinding::infl
             preferenceHelper.putString(Constance.SHARED_PREFERENCES_EMAIL, etEmail.text.toString())
         }
 
-    }
-
-    private fun getName(): String {
-        return NameParser.getName(binding.etEmail.text.toString())
     }
 
 }

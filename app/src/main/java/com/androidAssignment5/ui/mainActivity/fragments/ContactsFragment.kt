@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.selection.*
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.androidAssignment5.ui.mainActivity.adapters.ContactsRecycleViewAdapter
 import com.androidAssignment5.architecture.BaseFragment
 import com.androidAssignment5.model.Contact
@@ -15,6 +18,7 @@ import com.androidAssignment5.R
 import com.androidAssignment5.util.Constance
 import com.androidAssignment5.util.SwipeToDeleteCallback
 import com.androidAssignment5.databinding.FragmentContactsBinding
+import com.androidAssignment5.ui.mainActivity.MainActivityViewModel
 import com.androidAssignment5.ui.mainActivity.adapters.ContactsClickListener
 import com.androidAssignment5.util.ContactLookUp
 import com.androidAssignment5.util.KeyProvider
@@ -25,10 +29,15 @@ class ContactsFragment : BaseFragment<FragmentContactsBinding>(FragmentContactsB
 
     lateinit var tracker: SelectionTracker<Contact>
     private val contactViewModel: ContactsViewModel by activityViewModels()
+    private val activityViewModel: MainActivityViewModel by activityViewModels()
     private val adapter: ContactsRecycleViewAdapter by lazy {
         ContactsRecycleViewAdapter(contactClickListener = object : ContactsClickListener {
             override fun onDeleteClick(contact: Contact) {
-                contactViewModel.deleteContact(contact)
+                contactViewModel.deleteContact(
+                    activityViewModel.getId(),
+                    contact.id,
+                    activityViewModel.getToken()
+                )
                 undoUserDeletion(binding.root, contact)
             }
 
@@ -44,24 +53,24 @@ class ContactsFragment : BaseFragment<FragmentContactsBinding>(FragmentContactsB
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val id = requireActivity().intent.getStringExtra(Constance.INTENT_ID).toString()
-        val token =
-            requireActivity().intent.getStringExtra(Constance.INTENT_ACCESS_TOKEN).toString()
-
         setRecyclerView()
         setClickListeners()
         addTracker()
         setObservers()
-        contactViewModel.getUsers(id, "Bearer " + token)
+        contactViewModel.getUsers(activityViewModel.getId(), activityViewModel.getToken())
     }
 
     private fun setClickListeners() {
         binding.ivMultiselectTrash.setOnClickListener {
             deleteSelectedContacts(tracker.selection)
         }
+        val viewPager = activity?.findViewById<ViewPager2>(R.id.viewPager)
+        binding.ivContactBack.setOnClickListener {
+            viewPager?.currentItem = 0
+        }
 
         binding.ivContactBack.setOnClickListener {
-//            findNavController().popBackStack()
+            findNavController().popBackStack()
         }
 
         binding.tvAddContact.setOnClickListener {
@@ -73,10 +82,17 @@ class ContactsFragment : BaseFragment<FragmentContactsBinding>(FragmentContactsB
     private fun setRecyclerView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this.context)
         binding.recyclerView.adapter = adapter
-//        setFragmentListener()
         val swipeToDeleteCallback = object : SwipeToDeleteCallback() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                deleteContact(viewHolder.absoluteAdapterPosition)
+                val contact =
+                    contactViewModel.contactList.value?.get(viewHolder.absoluteAdapterPosition)
+                val id = contact?.id.toString()
+                contactViewModel.deleteContact(
+                    activityViewModel.getId(),
+                    id,
+                    activityViewModel.getToken()
+                )
+                undoUserDeletion(binding.root, contact)
             }
         }
         val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
@@ -107,27 +123,12 @@ class ContactsFragment : BaseFragment<FragmentContactsBinding>(FragmentContactsB
         }
     }
 
-
-//    private fun setFragmentListener() {
-//        setFragmentResultListener(ADD_CONTACT_RESULT_KEY) { _, bundle ->
-//            val result = bundle.getParcelable<Contact>(Constance.CONTACT_SERIALIZABLE)
-//            addContact(result as Contact)
-//        }
-//    }
-
-    private fun addContact(contact: Contact) {
-        contactViewModel.addContact(contact)
-    }
-
     private fun deleteSelectedContacts(selection: Selection<Contact>) {
         val list = selection.toList()
-        contactViewModel.deleteContact(list)
-    }
-
-    fun deleteContact(index: Int) {
-        val contact = contactViewModel.contactList.value?.get(index)!!
-        contactViewModel.deleteContact(index)
-        undoUserDeletion(binding.root, contact)
+        contactViewModel.deleteSelected(
+            list, activityViewModel.getId(),
+            activityViewModel.getToken()
+        )
     }
 
     private fun undoUserDeletion(view: View, contact: Contact?) {
@@ -137,7 +138,11 @@ class ContactsFragment : BaseFragment<FragmentContactsBinding>(FragmentContactsB
             Snackbar.LENGTH_LONG
         )
         delMessage.setAction("Cancel") {
-            contactViewModel.addContact(contact)
+            contactViewModel.addContact(
+                activityViewModel.getId(),
+                activityViewModel.getToken(),
+                contact.id
+            )
         }.show()
     }
 

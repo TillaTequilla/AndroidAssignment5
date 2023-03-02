@@ -47,20 +47,11 @@
         app:constraint_referenced_ids="tvShowContact_name,tvShowContact_career,tvShowContact_email,tvShowContact_phone,tvShowContact_address,tvShowContact_Birth"
         app:flow_maxElementsWrap="1"
         app:flow_verticalBias="10"
-        app:layout_constraintBottom_toTopOf="@id/ivShowContact_trash"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivShowContact_trash"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/icon_trash" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"

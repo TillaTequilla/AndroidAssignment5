@@ -21,10 +21,12 @@
     </style>
 
     <style name="ThemeOverlay.App.TextInputLayoutForAddContact" parent="">
-        <item name="colorPrimary">#888888</item>
-        <item name="colorOnSurface">#888888</item>
+        <item name="colorPrimary">#FF0000</item>
+        <item name="colorOnSurface">#FF0000</item>
         <item name="colorError">@color/contacts_contacts</item>
     </style>
+
+
 
     <style name="TextLabel" parent="TextAppearance.Design.Hint">
         <item name="android:textSize">12sp</item>

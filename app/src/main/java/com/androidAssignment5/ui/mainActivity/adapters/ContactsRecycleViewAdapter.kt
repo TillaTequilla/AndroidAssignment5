@@ -46,7 +46,7 @@ class ContactsRecycleViewAdapter(private val contactClickListener: ContactsClick
                     ivContactPhoto.addCircularImage(image)
                 }
                 IvRemoveContact.setOnClickListener {
-                    contactClickListener.onDeleteClick(this)
+                    contactClickListener.onDeleteClick(contact)
                 }
                 itemView.setOnClickListener {
                     contactClickListener.onContactClick(this)

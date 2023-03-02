@@ -41,4 +41,5 @@
     <string name="showContact_phone">Phone: %1$s</string>
     <string name="showContact_address">Address: %1$s</string>
     <string name="showContact_birth">Birth: %1$s</string>
+    <string name="login_error_cant_find_user">Can`t find user</string>
 </resources>

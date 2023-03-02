@@ -6,12 +6,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.androidAssignment5.App
+import com.androidAssignment5.data.remote.AddContactRequest
 import com.androidAssignment5.model.Contact
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 
-class ContactsViewModel(private val application: Application) : AndroidViewModel(application) {
+class ContactsViewModel(private val app: Application) : AndroidViewModel(app) {
 
     private val _contactList: MutableLiveData<List<Contact>> = MutableLiveData()
 
@@ -19,10 +20,15 @@ class ContactsViewModel(private val application: Application) : AndroidViewModel
 
     private val compositeDisposable = CompositeDisposable()
 
+    override fun onCleared() {
+        compositeDisposable.clear()
+        super.onCleared()
+    }
+
     fun getUsers(id: String, token: String) {
         viewModelScope.launch {
             compositeDisposable.add(
-                (application as? App)?.appApi?.getUserContacts(id,token)
+                (app as? App)?.appApi?.getUserContacts(id, token)
                     ?.subscribeOn(Schedulers.io())
                     ?.subscribe({
                         _contactList.postValue(it.data.contacts)
@@ -31,21 +37,39 @@ class ContactsViewModel(private val application: Application) : AndroidViewModel
             )
         }
     }
-    fun getListUsers() = _contactList.value
 
-    fun deleteContact(index: Int) {
-        deleteContact(_contactList.value!![index])
+    fun deleteContact(userId: String, contactId: String, token: String) {
+        viewModelScope.launch {
+            compositeDisposable.add(
+                (app as? App)?.appApi?.deleteContact(userId, contactId, token)
+                    ?.subscribeOn(Schedulers.io())
+                    ?.subscribe({
+                        _contactList.postValue(it.data.contacts)
+                    }, {
+                    })
+            )
+        }
     }
 
-    fun deleteContact(contact: Contact) {
-        _contactList.value = _contactList.value?.minus(contact)
+    fun addContact(userId: String, token: String, id: String) {
+        viewModelScope.launch {
+            val request = AddContactRequest(id)
+            compositeDisposable.add(
+                (app as? App)?.appApi?.addContact(userId, token, request)
+                    ?.subscribeOn(Schedulers.io())
+                    ?.subscribe({
+                        _contactList.postValue(it.data.contacts)
+                    }, {
+                    })
+            )
+        }
     }
 
-    fun addContact(contact: Contact) {
-        _contactList.value = _contactList.value?.plus(contact)
+    fun deleteSelected(list: List<Contact>, userId: String, token: String) {
+        for (contact in list) {
+            deleteContact(userId, contact.id, token)
+        }
     }
 
-    fun deleteContact(list: List<Contact>) {
-        _contactList.value = _contactList.value?.minus(list.toSet())
-    }
+
 }

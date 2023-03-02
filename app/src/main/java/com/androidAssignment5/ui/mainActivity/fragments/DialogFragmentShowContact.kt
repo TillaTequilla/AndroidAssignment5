@@ -14,7 +14,6 @@ import com.androidAssignment5.util.Constance
 class DialogFragmentShowContact :
     BaseDialogFragment<FragmentShowContactBinding>(FragmentShowContactBinding::inflate) {
 
-    private val contactViewModel: ContactsViewModel by activityViewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setSizePercent(82, 50)
@@ -31,10 +30,6 @@ class DialogFragmentShowContact :
                         .into(ivShowContactPhoto)
                 } else {
                     ivShowContactPhoto.setImageResource(R.drawable.icon_default_photo)
-                }
-                ivShowContactTrash?.setOnClickListener {
-                    contactViewModel.deleteContact(contact)
-                    dismiss()
                 }
                 tvShowContactCareer.text =
                     getString(R.string.showContact_career, contact.career)

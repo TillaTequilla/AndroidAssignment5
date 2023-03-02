@@ -1,8 +1,7 @@
 package com.androidAssignment5
 
 import android.app.Application
-import com.androidAssignment5.data.remote.AppApi
-import okhttp3.OkHttp
+import com.androidAssignment5.data.api.AppApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -11,6 +10,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class App : Application() {
     lateinit var appApi: AppApi
+
+
 
     override fun onCreate() {
         super.onCreate()

@@ -24,7 +24,7 @@
             app:layout_constraintStart_toStartOf="@id/profile"
             app:layout_constraintTop_toTopOf="@id/profile"
             app:layout_constraintVertical_bias="@dimen/mainActivity_ivPhotoProfile_bias"
-            app:srcCompat="@drawable/photo_default_women" />
+            app:srcCompat="@drawable/icon_default_photo" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvName"
@@ -33,7 +33,6 @@
             android:layout_marginTop="@dimen/indent_big"
             android:fontFamily="@font/semi_bold"
             android:gravity="top|start"
-            android:text="@string/profile_person_name"
             android:textColor="@color/white"
             android:textSize="@dimen/textSize_big"
             app:layout_constraintEnd_toEndOf="@id/profile"
@@ -47,7 +46,6 @@
             android:layout_marginTop="@dimen/indent_min"
             android:fontFamily="@font/semi_bold"
             android:gravity="top"
-            android:text="@string/profile_career"
             android:textColor="@color/profile_career_address"
             android:textSize="@dimen/textSize_normal"
             app:layout_constraintEnd_toEndOf="@id/profile"
@@ -60,7 +58,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/indent_normal"
             android:fontFamily="@font/semi_bold"
-            android:text="@string/profile_home_address"
             android:textColor="@color/profile_career_address"
             android:textSize="@dimen/textSize_normal"
             app:layout_constraintEnd_toEndOf="parent"
