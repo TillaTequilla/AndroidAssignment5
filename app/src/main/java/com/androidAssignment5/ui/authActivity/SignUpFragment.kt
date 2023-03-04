@@ -6,8 +6,6 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.androidAssignment5.App
-import com.androidAssignment5.R
 import com.androidAssignment5.architecture.BaseFragment
 import com.androidAssignment5.databinding.FragmentSignUpBinding
 import com.androidAssignment5.extension.toast
@@ -46,7 +44,6 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBinding
                 val name = binding.etNewUserName.text.toString()
                 val phone = binding.etNewUserPhone.text.toString()
                 signUpViewModel.registerUser(
-                    (requireActivity().application as? App)?.appApi,
                     email,
                     password,
                     name,

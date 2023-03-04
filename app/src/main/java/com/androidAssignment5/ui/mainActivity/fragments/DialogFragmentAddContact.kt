@@ -3,9 +3,7 @@ package com.androidAssignment5.ui.mainActivity.fragments
 import android.os.Bundle
 import android.view.View
 import androidx.core.widget.doAfterTextChanged
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.androidAssignment5.architecture.BaseDialogFragment
 import com.androidAssignment5.databinding.FragmentAddContactBinding
@@ -57,7 +55,7 @@ class DialogFragmentAddContact :
         binding.etSearchUser.doAfterTextChanged { text ->
             if (text!!.isNotEmpty()) {
                 val list = allContactViewModel.usersList.value?.filter {
-                    it?.name?.contains(text.toString(),true) ?: false
+                    it?.name?.contains(text.toString(), true) ?: false
 
                 }
                 adapter.submitList(list)

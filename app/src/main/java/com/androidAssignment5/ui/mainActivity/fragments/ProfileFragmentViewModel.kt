@@ -7,33 +7,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.androidAssignment5.App
 import com.androidAssignment5.model.Contact
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 
 class ProfileFragmentViewModel(private val app: Application) :
     AndroidViewModel(app) {
 
-    private val compositeDisposable = CompositeDisposable()
-
     private val _user = MutableLiveData<Contact>()
     val user: LiveData<Contact> = _user
 
-    override fun onCleared() {
-        compositeDisposable.clear()
-        super.onCleared()
-    }
-
     fun setData(id: String, token: String) {
         viewModelScope.launch {
-            compositeDisposable.add(
-                (app as? App)?.appApi?.getUser(id, token)
-                    ?.subscribeOn(Schedulers.io())
-                    ?.subscribe({
-                        _user.postValue(it.data.user)
-                    }, {
-                    })
-            )
+            try {
+                val response = ((app as? App)?.appApi?.getUser(id, token))
+                _user.postValue(response!!.data.user)
+            } catch (_: Exception) {
+            }
         }
     }
 }

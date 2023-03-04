@@ -13,9 +13,12 @@ import com.androidAssignment5.R
 import com.androidAssignment5.architecture.BaseFragment
 import com.androidAssignment5.databinding.FragmentAuthBinding
 import com.androidAssignment5.ui.mainActivity.MainActivity
-import com.androidAssignment5.util.NameParser
+import com.androidAssignment5.util.Constance.SHARED_PREFERENCES_EMAIL
+import com.androidAssignment5.util.Constance.SHARED_PREFERENCES_PASSWORD
+import com.androidAssignment5.util.Constance.SHARED_PREFERENCES_REMEMBER
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class AuthFragment : BaseFragment<FragmentAuthBinding>(FragmentAuthBinding::inflate) {
     private lateinit var preferenceHelper: PreferenceHelper
 
@@ -35,9 +38,10 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>(FragmentAuthBinding::infl
 
     private fun setLoginRegisterListener() {
         with(binding) {
+            val email = binding.etEmail.text.toString()
+            val password = binding.etPassword.text.toString()
             tvSignIn.setOnClickListener {
-                val email = binding.etEmail.text.toString()
-                val password = binding.etPassword.text.toString()
+                authFragmentViewModel.context()
                 val intent = Intent(requireActivity(), MainActivity::class.java)
                 authFragmentViewModel.loginUser(
                     email,
@@ -54,8 +58,6 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>(FragmentAuthBinding::infl
                 } else preferenceHelper.clear()
             }
             btnRegister.setOnClickListener {
-                val email = binding.etEmail.text.toString()
-                val password = binding.etPassword.text.toString()
                 if (tilEmail.error == null && tilPassword.error == null
                     && etEmail.text!!.isNotEmpty() && etPassword.text!!.isNotEmpty()
                 ) {
@@ -73,17 +75,22 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>(FragmentAuthBinding::infl
     private fun setEditTextChangeListener() {
         with(binding) {
             etPassword.doAfterTextChanged { text ->
-                if (text!!.length < 5) {
-                    tilPassword.error = getString(R.string.login_error_password_few_symbols)
-                } else if (!text.contains("\\d".toRegex())) {
-                    tilPassword.error = getString(R.string.login_error_password_number)
-                } else tilPassword.error = null
+                tilPassword.error = when (authFragmentViewModel.checkPassword(text)) {
+                    0 -> getString(R.string.login_error_password_few_symbols)
+                    1 -> getString(R.string.login_error_password_number)
+                    else -> {
+                        null
+                    }
+                }
             }
 
             etEmail.doAfterTextChanged { text ->
-                if (NameParser.validEmail(text.toString())) {
-                    tilEmail.error = null
-                } else tilEmail.error = getString(R.string.login_error_email_valid_email)
+                tilEmail.error = when (authFragmentViewModel.checkEmail(text)) {
+                    0 -> null
+                    else -> {
+                        getString(R.string.login_error_email_valid_email)
+                    }
+                }
             }
         }
     }
@@ -114,20 +121,13 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>(FragmentAuthBinding::infl
 
     private fun getPreferencesData() {
         with(binding) {
-            if (
-                preferenceHelper.getBoolean(
-                    Constance.SHARED_PREFERENCES_REMEMBER
-                )
+            if (preferenceHelper.getBoolean(SHARED_PREFERENCES_REMEMBER)
             ) {
                 etEmail.setText(
-                    preferenceHelper.getString(
-                        Constance.SHARED_PREFERENCES_EMAIL
-                    )
+                    preferenceHelper.getString(SHARED_PREFERENCES_EMAIL)
                 )
                 etPassword.setText(
-                    preferenceHelper.getString(
-                        Constance.SHARED_PREFERENCES_PASSWORD
-                    )
+                    preferenceHelper.getString(SHARED_PREFERENCES_PASSWORD)
                 )
                 cbRememberMe.isChecked = true
             }
@@ -138,14 +138,14 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>(FragmentAuthBinding::infl
     private fun rememberInformation() {
         binding.run {
             preferenceHelper.putBoolean(
-                Constance.SHARED_PREFERENCES_REMEMBER,
+                SHARED_PREFERENCES_REMEMBER,
                 cbRememberMe.isChecked
             )
             preferenceHelper.putString(
-                Constance.SHARED_PREFERENCES_PASSWORD,
+                SHARED_PREFERENCES_PASSWORD,
                 etPassword.text.toString()
             )
-            preferenceHelper.putString(Constance.SHARED_PREFERENCES_EMAIL, etEmail.text.toString())
+            preferenceHelper.putString(SHARED_PREFERENCES_EMAIL, etEmail.text.toString())
         }
 
     }

@@ -30,10 +30,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             binding.tvName.text = it.name
             binding.tvAddress.text = it.address
             binding.tvCareer.text = it.birthday
-            if(it.name!=null){
+            if (it.name != null) {
                 binding.ivPhotoProfile.addCircularImage(it.image)
             }
-
         }
         profileFragmentViewModel.setData(activityViewModel.getId(), activityViewModel.getToken())
 

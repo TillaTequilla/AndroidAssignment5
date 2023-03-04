@@ -8,8 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.androidAssignment5.App
 import com.androidAssignment5.data.remote.AddContactRequest
 import com.androidAssignment5.model.Contact
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 
 class ContactsViewModel(private val app: Application) : AndroidViewModel(app) {
@@ -18,50 +16,35 @@ class ContactsViewModel(private val app: Application) : AndroidViewModel(app) {
 
     val contactList: LiveData<List<Contact>> = _contactList
 
-    private val compositeDisposable = CompositeDisposable()
-
-    override fun onCleared() {
-        compositeDisposable.clear()
-        super.onCleared()
-    }
 
     fun getUsers(id: String, token: String) {
         viewModelScope.launch {
-            compositeDisposable.add(
-                (app as? App)?.appApi?.getUserContacts(id, token)
-                    ?.subscribeOn(Schedulers.io())
-                    ?.subscribe({
-                        _contactList.postValue(it.data.contacts)
-                    }, {
-                    })
-            )
+            try {
+                val response = ((app as? App)?.appApi?.getUserContacts(id, token))
+                _contactList.postValue(response!!.data.contacts)
+            } catch (_: Exception) {
+            }
         }
     }
 
     fun deleteContact(userId: String, contactId: String, token: String) {
         viewModelScope.launch {
-            compositeDisposable.add(
-                (app as? App)?.appApi?.deleteContact(userId, contactId, token)
-                    ?.subscribeOn(Schedulers.io())
-                    ?.subscribe({
-                        _contactList.postValue(it.data.contacts)
-                    }, {
-                    })
-            )
+            try {
+                val response = ((app as? App)?.appApi?.deleteContact(userId, contactId, token))
+                _contactList.postValue(response!!.data.contacts)
+            } catch (_: Exception) {
+            }
         }
     }
 
     fun addContact(userId: String, token: String, id: String) {
+        val request = AddContactRequest(id)
         viewModelScope.launch {
-            val request = AddContactRequest(id)
-            compositeDisposable.add(
-                (app as? App)?.appApi?.addContact(userId, token, request)
-                    ?.subscribeOn(Schedulers.io())
-                    ?.subscribe({
-                        _contactList.postValue(it.data.contacts)
-                    }, {
-                    })
-            )
+            try {
+                val response = ((app as? App)?.appApi?.addContact(userId, token, request))
+                _contactList.postValue(response!!.data.contacts)
+            } catch (_: Exception) {
+            }
         }
     }
 
@@ -70,6 +53,5 @@ class ContactsViewModel(private val app: Application) : AndroidViewModel(app) {
             deleteContact(userId, contact.id, token)
         }
     }
-
-
 }
+

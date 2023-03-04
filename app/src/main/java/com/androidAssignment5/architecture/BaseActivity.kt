@@ -8,11 +8,12 @@ import androidx.viewbinding.ViewBinding
 abstract class BaseActivity<B : ViewBinding>(val bindingFactory: (LayoutInflater) -> B) :
     AppCompatActivity() {
     private var _binding: B? = null
-    val binding get() = requireNotNull(_binding)
+    lateinit var binding: B
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = bindingFactory(layoutInflater)
+        binding= _binding as B
         setContentView(binding.root)
     }
 

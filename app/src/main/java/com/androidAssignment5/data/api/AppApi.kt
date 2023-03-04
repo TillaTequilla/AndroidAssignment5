@@ -6,39 +6,39 @@ import retrofit2.http.*
 
 interface AppApi {
     @POST("./users")
-    fun registerUser(@Body request: RegisterRequest): Single<RegisterResponse>
+    suspend fun registerUser(@Body request: RegisterRequest): RegisterResponse
 
     @GET("users/{userId}/contacts")
-    fun getUserContacts(
+    suspend fun getUserContacts(
         @Path("userId") userId: String,
         @Header("Authorization") accessToken: String,
-    ): Single<GetUserContactsResponse>
+    ): GetUserContactsResponse
 
     @POST("./login")
     suspend fun loginUser(@Body request: LoginRequest): LoginResponse
 
     @GET("users/{userId}")
-    fun getUser(
+    suspend fun getUser(
         @Path("userId") userId: String,
         @Header("Authorization") accessToken: String,
-    ): Single<GetUserResponse>
+    ): GetUserResponse
 
     @GET("./users")
-    fun getAllUsers(
+    suspend fun getAllUsers(
         @Header("Authorization") accessToken: String
-    ): Single<AllUsersResponse>
+    ): AllUsersResponse
 
     @PUT("users/{userId}/contacts")
-    fun addContact(
+    suspend fun addContact(
         @Path("userId") userId: String,
         @Header("Authorization") accessToken: String,
         @Body request: AddContactRequest
-    ): Single<GetUserContactsResponse>
+    ): GetUserContactsResponse
 
     @DELETE("users/{userId}/contacts/{contactId}")
-    fun deleteContact(
+    suspend fun deleteContact(
         @Path("userId") userId: String,
         @Path("contactId") contactId: String,
         @Header("Authorization") accessToken: String,
-    ): Single<GetUserContactsResponse>
+    ): GetUserContactsResponse
 }
