@@ -1,26 +1,20 @@
-package com.androidAssignment5.ui.authActivity
+package com.androidAssignment5.ui.authActivity.fragments.auth
 
 import android.app.Application
-import android.content.Context
 import android.text.Editable
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.androidAssignment5.App
-import com.androidAssignment5.R
-import com.androidAssignment5.data.remote.LoginRequest
-import com.androidAssignment5.data.remote.LoginResponse
+import com.androidAssignment5.data.remote.requests.LoginRequest
+import com.androidAssignment5.data.remote.responses.LoginResponse
+import com.androidAssignment5.util.Constance
 import com.androidAssignment5.util.NameParser
-import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ActivityContext
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.android.scopes.ActivityScoped
+import com.androidAssignment5.util.PreferenceHelper
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class AuthFragmentViewModel @Inject constructor(@ActivityContext val context: Context,private val app: Application) :
+class AuthFragmentViewModel(private val app: Application) :
     AndroidViewModel(app) {
 
     private val _error = MutableLiveData<String>()
@@ -28,6 +22,8 @@ class AuthFragmentViewModel @Inject constructor(@ActivityContext val context: Co
 
     private val _response = MutableLiveData<LoginResponse>()
     val response: LiveData<LoginResponse> = _response
+
+    var preferenceHelper: PreferenceHelper = PreferenceHelper(app.applicationContext)
 
     fun loginUser(
         email: String,
@@ -38,13 +34,15 @@ class AuthFragmentViewModel @Inject constructor(@ActivityContext val context: Co
             try {
                 _response.postValue((app as? App)?.appApi?.loginUser(request))
             } catch (_: Exception) {
+                app.applicationContext
                 _error.postValue("HTTP 401 Unauthorized")
             }
         }
     }
 
     fun checkPassword(text: Editable?): Int {
-        return if (text!!.length < 5) {
+        return if (text!!.length < Constance.PASSWORD_MIN_LENGTH) {
+
             0
         } else if (!text.contains("\\d".toRegex())) {
             1
@@ -57,6 +55,21 @@ class AuthFragmentViewModel @Inject constructor(@ActivityContext val context: Co
         } else 1
     }
 
-    fun context() {
+    fun putDataToStorage(checked: Boolean, toString: String, toString1: String) {
+        preferenceHelper.putBoolean(
+            Constance.SHARED_PREFERENCES_REMEMBER,
+            checked
+        )
+        preferenceHelper.putString(
+            Constance.SHARED_PREFERENCES_PASSWORD,
+            toString
+        )
+        preferenceHelper.putString(Constance.SHARED_PREFERENCES_EMAIL, toString1)
     }
+
+    fun clearDataStore() {
+        preferenceHelper.clear()
+    }
+
+
 }

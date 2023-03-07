@@ -10,22 +10,22 @@
         android:id="@+id/tb"
         style="@style/MineCustomTabText"
         android:layout_width="match_parent"
-        android:layout_height="22dp"
+        android:layout_height="@dimen/indent_big"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tabMaxWidth="0dp"
-        app:tabGravity="fill">
+        app:tabGravity="fill"
+        app:tabMaxWidth="0dp">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Profile" />
+            android:text="@string/TabLayout_firstTab" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Contacts" />
+            android:text="@string/TabLayout_secondTab" />
 
     </com.google.android.material.tabs.TabLayout>
 

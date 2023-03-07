@@ -22,7 +22,6 @@
     <string name="login_error_password_number">Хоча б 1 цифра</string>
     <string name="login_error_email_valid_email">Введіть коректну е-скриньку</string>
     <string name="addContact_hint_username"><font size="34">Логін</font></string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="addContact_hint_career">Професія</string>
     <string name="addContact_hint_email">Е-Скриня</string>
     <string name="addContact_hint_phone">Телефон</string>
@@ -39,4 +38,14 @@
     <string name="showContact_phone">Телефон: %1$s</string>
     <string name="showContact_address">Адреса: %1$s</string>
     <string name="showContact_birth">Дата народження: %1$s</string>
+    <string name="login_error_cant_find_user">Користувач не знайдений</string>
+    <string name="addContact_allUsers">Користувачі</string>
+    <string name="TabLayout_firstTab">Профіль</string>
+    <string name="TabLayout_secondTab">Контакти</string>
+    <string name="signUp_your_data">Введіть дані</string>
+    <string name="signUp_your_data_bot">Заповніть поля та рухайтесь далі!</string>
+    <string name="signUp_hintName">Ім\'я</string>
+    <string name="signUp_hintMobile">Телефон</string>
+    <string name="signUp_bForward">Далі</string>
+    <string name="signUp_bCancel">Відміна</string>
 </resources>

@@ -1,61 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/profile_background"
-    tools:context=".ui.authActivity.SignUpFragment">
+    android:orientation="vertical"
+    tools:context=".ui.authActivity.fragments.signUp.SignUpFragment">
 
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/ivNewUser_photo"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:src="@drawable/icon_default_photo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/ivNewUser_add_photo"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.20" />
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="60dp">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivNewUser_add_photo"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="@dimen/indent_normal"
-        app:layout_constraintBottom_toBottomOf="@id/ivNewUser_photo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/ivNewUser_photo"
-        app:layout_constraintTop_toTopOf="@id/ivNewUser_photo"
-        app:srcCompat="@drawable/icon_add_photo" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivNewUser_photo"
+            android:layout_width="@dimen/signUpFragment_ivNewUser_photo_size"
+            android:layout_height="@dimen/signUpFragment_ivNewUser_photo_size"
+            android:src="@drawable/icon_default_photo" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivNewUser_add_photo"
+            android:layout_width="@dimen/signUpFragment_ivAdd_photo_size"
+            android:layout_height="@dimen/signUpFragment_ivAdd_photo_size"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/indent_normal"
+            app:srcCompat="@drawable/icon_add_photo" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvProfile_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/indent_big"
         android:fontFamily="@font/semi_bold"
-        android:text="Your profile data"
+        android:text="@string/signUp_your_data"
         android:textColor="@color/white"
-        android:textSize="@dimen/textSize_big"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivNewUser_photo" />
+        android:textSize="@dimen/textSize_big" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvProfile_fill_and_go"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/indent_normal"
         android:fontFamily="@font/semi_bold"
-        android:text="Fill out the profile and go to the application!"
+        android:text="@string/signUp_your_data_bot"
         android:textColor="@color/white"
-        android:textSize="@dimen/textSize_normal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvProfile_data" />
+        android:textSize="@dimen/textSize_normal" />
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -63,15 +59,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/indent_big"
-        android:hint="name"
+        android:hint="@string/signUp_hintName"
         android:paddingHorizontal="@dimen/indent_small"
         android:theme="@style/ThemeOverlay.App.TextInputLayout"
         app:errorEnabled="true"
         app:expandedHintEnabled="false"
-        app:hintTextAppearance="@style/TextLabel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvProfile_fill_and_go">
+        app:hintTextAppearance="@style/TextLabel">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etNewUser_name"
@@ -89,14 +82,11 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/indent_small"
         android:layout_marginTop="@dimen/indent_big"
-        android:hint="mobile"
+        android:hint="@string/signUp_hintMobile"
         android:theme="@style/ThemeOverlay.App.TextInputLayout"
         app:errorEnabled="true"
         app:expandedHintEnabled="false"
-        app:hintTextAppearance="@style/TextLabel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilNewUser_name">
+        app:hintTextAppearance="@style/TextLabel">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etNewUser_phone"
@@ -112,27 +102,21 @@
         android:id="@+id/tvForward"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_marginHorizontal="@dimen/indent_small"
+        android:layout_marginTop="@dimen/indent_max"
         android:backgroundTint="@color/contacts_contacts"
         android:letterSpacing="0.1"
-        android:text="forward"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:text="@string/signUp_bForward"
+        android:textColor="@color/white" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnCancel"
         android:layout_width="match_parent"
-        android:layout_height="34dp"
+        android:layout_height="@dimen/signUpFragment_btnCancel_size"
         android:layout_marginHorizontal="@dimen/indent_small"
         android:background="@drawable/user_border"
         android:letterSpacing="0.1"
-        android:text="Cancel"
+        android:text="@string/signUp_bCancel"
         android:textAllCaps="false"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/tvForward"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textColor="@color/white" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

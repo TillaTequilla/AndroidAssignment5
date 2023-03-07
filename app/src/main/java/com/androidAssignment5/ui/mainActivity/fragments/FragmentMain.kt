@@ -2,9 +2,11 @@ package com.androidAssignment5.ui.mainActivity.fragments
 
 import android.os.Bundle
 import android.view.View
+import com.androidAssignment5.R
 import com.androidAssignment5.ui.mainActivity.adapters.ViewPagerAdapter
 import com.androidAssignment5.architecture.BaseFragment
 import com.androidAssignment5.databinding.FragmentMainBinding
+import com.androidAssignment5.ui.mainActivity.adapters.Tabs
 import com.google.android.material.tabs.TabLayoutMediator
 
 
@@ -17,8 +19,8 @@ class FragmentMain : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
         TabLayoutMediator(binding.tb, binding.viewPager) { tab, pos ->
             tab.text =
                 when (pos) {
-                    0 -> "Profile"
-                    else -> "Contacts"
+                    Tabs.PROFILE.position -> getString(R.string.TabLayout_firstTab)
+                    else -> getString(R.string.TabLayout_secondTab)
                 }
         }.attach()
     }

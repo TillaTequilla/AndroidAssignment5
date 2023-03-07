@@ -1,4 +1,4 @@
-package com.androidAssignment5.ui.mainActivity.fragments
+package com.androidAssignment5.ui.mainActivity.fragments.addContact
 
 import android.os.Bundle
 import android.view.View
@@ -11,6 +11,7 @@ import com.androidAssignment5.extension.setSizePercent
 import com.androidAssignment5.ui.mainActivity.MainActivityViewModel
 import com.androidAssignment5.ui.mainActivity.adapters.AddContactClickListener
 import com.androidAssignment5.ui.mainActivity.adapters.AddContactRecyclerViewAdapter
+import com.androidAssignment5.ui.mainActivity.fragments.contacts.ContactsViewModel
 
 
 class DialogFragmentAddContact :
@@ -56,7 +57,6 @@ class DialogFragmentAddContact :
             if (text!!.isNotEmpty()) {
                 val list = allContactViewModel.usersList.value?.filter {
                     it?.name?.contains(text.toString(), true) ?: false
-
                 }
                 adapter.submitList(list)
             } else {

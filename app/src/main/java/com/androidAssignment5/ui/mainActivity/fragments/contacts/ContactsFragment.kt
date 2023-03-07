@@ -1,17 +1,16 @@
-package com.androidAssignment5.ui.mainActivity.fragments
+package com.androidAssignment5.ui.mainActivity.fragments.contacts
 
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.selection.*
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.androidAssignment5.ui.mainActivity.adapters.ContactsRecycleViewAdapter
+import com.androidAssignment5.ui.mainActivity.adapters.ContactsRecyclerViewAdapter
 import com.androidAssignment5.architecture.BaseFragment
 import com.androidAssignment5.model.Contact
 import com.androidAssignment5.R
@@ -20,6 +19,7 @@ import com.androidAssignment5.util.SwipeToDeleteCallback
 import com.androidAssignment5.databinding.FragmentContactsBinding
 import com.androidAssignment5.ui.mainActivity.MainActivityViewModel
 import com.androidAssignment5.ui.mainActivity.adapters.ContactsClickListener
+import com.androidAssignment5.ui.mainActivity.fragments.addContact.DialogFragmentAddContact
 import com.androidAssignment5.util.ContactLookUp
 import com.androidAssignment5.util.KeyProvider
 import com.google.android.material.snackbar.Snackbar
@@ -30,8 +30,8 @@ class ContactsFragment : BaseFragment<FragmentContactsBinding>(FragmentContactsB
     lateinit var tracker: SelectionTracker<Contact>
     private val contactViewModel: ContactsViewModel by activityViewModels()
     private val activityViewModel: MainActivityViewModel by activityViewModels()
-    private val adapter: ContactsRecycleViewAdapter by lazy {
-        ContactsRecycleViewAdapter(contactClickListener = object : ContactsClickListener {
+    private val adapter: ContactsRecyclerViewAdapter by lazy {
+        ContactsRecyclerViewAdapter(contactClickListener = object : ContactsClickListener {
             override fun onDeleteClick(contact: Contact) {
                 contactViewModel.deleteContact(
                     activityViewModel.getId(),

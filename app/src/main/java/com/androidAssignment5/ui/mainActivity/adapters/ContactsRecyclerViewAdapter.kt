@@ -8,19 +8,19 @@ import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.androidAssignment5.R
-import com.androidAssignment5.databinding.RecycleviewContactItemBinding
+import com.androidAssignment5.databinding.RecyclerviewContactItemBinding
 import com.androidAssignment5.extension.addCircularImage
 import com.androidAssignment5.model.Contact
 import com.androidAssignment5.util.DiffUtil
 
-class ContactsRecycleViewAdapter(private val contactClickListener: ContactsClickListener) :
-    ListAdapter<Contact, ContactsRecycleViewAdapter.Holder>(DiffUtil) {
+class ContactsRecyclerViewAdapter(private val contactClickListener: ContactsClickListener) :
+    ListAdapter<Contact, ContactsRecyclerViewAdapter.Holder>(DiffUtil) {
 
     lateinit var selectionTracker: SelectionTracker<Contact>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.recycleview_contact_item, parent, false)
+            .inflate(R.layout.recyclerview_contact_item, parent, false)
         return Holder(itemView)
     }
 
@@ -35,12 +35,12 @@ class ContactsRecycleViewAdapter(private val contactClickListener: ContactsClick
     }
 
     inner class Holder(item: View) : RecyclerView.ViewHolder(item) {
-        private val binding = RecycleviewContactItemBinding.bind(item)
+        private val binding = RecyclerviewContactItemBinding.bind(item)
         fun bind(contact: Contact, selectionTracker: SelectionTracker<Contact>) = with(binding) {
             with(contact) {
                 tvContactName.text = name
                 tvContactCareer.text = career
-                if (image == "null") {
+                if (image == null) {
                     ivContactPhoto.setImageResource(R.drawable.icon_default_photo)
                 } else {
                     ivContactPhoto.addCircularImage(image)
@@ -70,7 +70,7 @@ class ContactsRecycleViewAdapter(private val contactClickListener: ContactsClick
             object : ItemDetails<Contact>() {
                 override fun getPosition(): Int = bindingAdapterPosition
                 override fun getSelectionKey(): Contact? =
-                    (bindingAdapter as ContactsRecycleViewAdapter).currentList[bindingAdapterPosition]
+                    (bindingAdapter as ContactsRecyclerViewAdapter).currentList[bindingAdapterPosition]
             }
 
     }

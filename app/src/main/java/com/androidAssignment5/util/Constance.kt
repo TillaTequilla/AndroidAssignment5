@@ -9,4 +9,5 @@ object Constance {
     const val SHARED_PREFERENCES_EMAIL = "email"
     const val SHARED_PREFERENCES_PASSWORD = "password"
     const val CONTACT_SERIALIZABLE="contact"
+    const val PASSWORD_MIN_LENGTH=5
 }

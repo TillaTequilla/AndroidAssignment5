@@ -1,4 +1,4 @@
-package com.androidAssignment5.ui.mainActivity.fragments
+package com.androidAssignment5.ui.mainActivity.fragments.contacts
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.androidAssignment5.App
-import com.androidAssignment5.data.remote.AddContactRequest
+import com.androidAssignment5.data.remote.requests.AddContactRequest
 import com.androidAssignment5.model.Contact
 import kotlinx.coroutines.launch
 

@@ -1,4 +1,4 @@
-package com.androidAssignment5.ui.authActivity
+package com.androidAssignment5.ui.authActivity.fragments.signUp
 
 import android.content.Intent
 import android.os.Bundle

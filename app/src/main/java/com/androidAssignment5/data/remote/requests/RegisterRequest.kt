@@ -1,4 +1,4 @@
-package com.androidAssignment5.data.remote
+package com.androidAssignment5.data.remote.requests
 
 data class RegisterRequest(
     val email: String,

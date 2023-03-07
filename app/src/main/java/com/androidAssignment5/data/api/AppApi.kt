@@ -1,7 +1,10 @@
 package com.androidAssignment5.data.api
 
 import com.androidAssignment5.data.remote.*
-import io.reactivex.Single
+import com.androidAssignment5.data.remote.requests.AddContactRequest
+import com.androidAssignment5.data.remote.requests.LoginRequest
+import com.androidAssignment5.data.remote.requests.RegisterRequest
+import com.androidAssignment5.data.remote.responses.*
 import retrofit2.http.*
 
 interface AppApi {

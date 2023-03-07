@@ -70,7 +70,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageView
-
         android:id="@+id/ivShowContact_photo"
         android:layout_width="@dimen/showContact_ivShowContactPhoto_size"
         android:layout_height="@dimen/showContact_ivShowContactPhoto_size"

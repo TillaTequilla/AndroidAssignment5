@@ -1,32 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <dimen name="indent_min">6dp</dimen>
     <dimen name="indent_small">10dp</dimen>
     <dimen name="indent_normal">16dp</dimen>
     <dimen name="indent_big">24dp</dimen>
+    <dimen name="indent_max">30dp</dimen>
     <dimen name="textSize_normal">14sp</dimen>
     <dimen name="textSize_big">18sp</dimen>
+    <dimen name="textSize_max">24sp</dimen>
 
-    <dimen name="authActivity_topGreeting_textSize">24sp</dimen>
-    <dimen name="authActivity_email_bias">0.32</dimen>
-    <dimen name="authActivity_googleButton_height">48dp</dimen>
-    <dimen name="authActivity_googleButton_bias">0.70</dimen>
-    <dimen name="authActivity_googleButton_bias_land">0.10</dimen>
-    <dimen name="authActivity_registerButton_height">56dp</dimen>
-    <dimen name="authActivity_terms_height">32dp</dimen>
-    <dimen name="mainActivity_ivPhotoProfile_width">113dp</dimen>
-    <dimen name="mainActivity_ivPhotoProfile_height">113dp</dimen>
-    <dimen name="mainActivity_ivPhotoProfile_bias">0.27</dimen>
-    <dimen name="mainActivity_tvSettings_textSize">24sp</dimen>
-    <dimen name="mainActivity_buttons_padding">18dp</dimen>
-    <dimen name="mainActivity_bContacts_height">55dp</dimen>
-    <dimen name="mainActivity_bEditProfile_height">48dp</dimen>
-    <dimen name="mainActivity_bEditProfile_marginHorizontal">2dp</dimen>
-    <dimen name="mainActivity_tvGoSetting_marginBottom">22dp</dimen>
-    <dimen name="mainActivity_socialMedias_size">60dp</dimen>
-    <dimen name="mainActivity_socialMedias_bias">0.22</dimen>
-    <dimen name="mainActivity_socialMedias_margin">32dp</dimen>
+    <!--authFragment-->
+    <dimen name="authFragment_topMargin">56dp</dimen>
+    <dimen name="authFragment_googleButton_height">48dp</dimen>
+    <dimen name="authFragment_registerButton_height">56dp</dimen>
+    <dimen name="authFragment_terms_height">32dp</dimen>
+    <!--signUpFragment-->
+    <dimen name="signUpFragment_ivNewUser_photo_size">110dp</dimen>
+    <dimen name="signUpFragment_ivAdd_photo_size">60dp</dimen>
+    <dimen name="signUpFragment_btnCancel_size">34dp</dimen>
+    <!--    profileFragment-->
+    <dimen name="profileFragment_ivPhotoProfile_width">113dp</dimen>
+    <dimen name="profileFragment_ivPhotoProfile_height">113dp</dimen>
+    <dimen name="profileFragment_tvSettings_textSize">24sp</dimen>
+    <dimen name="profileFragment_buttons_padding">18dp</dimen>
+    <dimen name="profileFragment_btnContacts_height">55dp</dimen>
+    <dimen name="profileFragment_btnEditProfile_height">48dp</dimen>
+    <dimen name="profileFragment_bEditProfile_marginHorizontal">2dp</dimen>
+    <dimen name="profileFragment_tvGoSetting_marginBottom">22dp</dimen>
+    <dimen name="profileFragment_socialMedias_size">60dp</dimen>
+    <dimen name="profileFragment_socialMedias_margin">32dp</dimen>
+    <!--contactsFragment-->
     <dimen name="dialogFragment_addContact_svInformation_width">300dp</dimen>
     <dimen name="dialogFragment_addContact_svInformation_height">400dp</dimen>
     <dimen name="dialogFragment_addContact_tiIOfInformation_marginTop">20dp</dimen>
@@ -37,7 +40,5 @@
     <dimen name="recycleViewContact_border_height">66dp</dimen>
     <dimen name="recycleViewContact_ivContactPhoto_size">50dp</dimen>
     <dimen name="showContact_ivShowContactPhoto_size">100dp</dimen>
-
-
-
+    <dimen name="addContactFragment_topLayout_bias">0.22</dimen>
 </resources>

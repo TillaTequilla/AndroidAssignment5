@@ -1,4 +1,4 @@
-package com.androidAssignment5.ui.mainActivity.fragments
+package com.androidAssignment5.ui.mainActivity.fragments.addContact
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

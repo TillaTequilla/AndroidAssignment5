@@ -1,15 +1,15 @@
-package com.androidAssignment5.data.remote
+package com.androidAssignment5.data.remote.responses
 
 import com.androidAssignment5.model.Contact
 
-data class RegisterResponse(
+data class LoginResponse(
     val status: String,
     val code: Int,
     val message: String?,
-    val data: ResponseBody
-
+    val data: AuthorizeResponseBody
 )
-data class ResponseBody(
+
+data class AuthorizeResponseBody(
     val user: Contact,
     val accessToken: String,
     val refreshToken: String

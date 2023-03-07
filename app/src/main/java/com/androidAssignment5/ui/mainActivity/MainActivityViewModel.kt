@@ -6,16 +6,16 @@ import androidx.lifecycle.ViewModel
 
 class MainActivityViewModel : ViewModel() {
 
-    private val _id: MutableLiveData<String> = MutableLiveData()
+    private val _userId: MutableLiveData<String> = MutableLiveData()
 
-    val id: LiveData<String> = _id
+    val userId: LiveData<String> = _userId
 
     private val _token: MutableLiveData<String> = MutableLiveData()
 
     private val token: LiveData<String> = _token
 
     fun setId(id:String){
-        _id.value=id
+        _userId.value=id
     }
 
     fun setToken(token:String){
@@ -23,7 +23,7 @@ class MainActivityViewModel : ViewModel() {
     }
 
     fun getId(): String {
-        return id.value.toString()
+        return userId.value.toString()
     }
 
     fun getToken(): String {

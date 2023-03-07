@@ -22,7 +22,6 @@
     <string name="login_error_password_number">At least 1 number</string>
     <string name="login_error_email_valid_email">Enter valid E-mail</string>
     <string name="addContact_hint_username"><font size="34">Username</font></string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="addContact_hint_career">Career</string>
     <string name="addContact_hint_email">Email</string>
     <string name="addContact_hint_phone">Phone</string>
@@ -42,4 +41,14 @@
     <string name="showContact_address">Address: %1$s</string>
     <string name="showContact_birth">Birth: %1$s</string>
     <string name="login_error_cant_find_user">Can`t find user</string>
+    <string name="addContact_allUsers">Users</string>
+    <string name="TabLayout_firstTab">Profile</string>
+    <string name="TabLayout_secondTab">Contacts</string>
+    <string name="Token" translatable="false">Bearer\u0020</string>
+    <string name="signUp_your_data">Your profile data</string>
+    <string name="signUp_your_data_bot">Fill out the profile and go to the application!</string>
+    <string name="signUp_hintName">Name</string>
+    <string name="signUp_hintMobile">Mobile</string>
+    <string name="signUp_bForward">Forward</string>
+    <string name="signUp_bCancel">Cancel</string>
 </resources>

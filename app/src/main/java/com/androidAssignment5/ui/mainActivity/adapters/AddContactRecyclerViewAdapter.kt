@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.androidAssignment5.R
-import com.androidAssignment5.databinding.RecycleviewAddContactItemBinding
+import com.androidAssignment5.databinding.RecyclerviewAddContactItemBinding
 import com.androidAssignment5.model.Contact
 import com.androidAssignment5.util.DiffUtil
 
@@ -15,7 +15,7 @@ class AddContactRecyclerViewAdapter(private val contactClickListener: AddContact
     ListAdapter<Contact, AddContactRecyclerViewAdapter.Holder>(DiffUtil) {
 
     inner class Holder(item: View) : RecyclerView.ViewHolder(item) {
-        private val binding = RecycleviewAddContactItemBinding.bind(item)
+        private val binding = RecyclerviewAddContactItemBinding.bind(item)
         fun bind(contact: Contact) {
             with(binding) {
                 with(contact) {
@@ -30,7 +30,7 @@ class AddContactRecyclerViewAdapter(private val contactClickListener: AddContact
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.recycleview_add_contact_item, parent, false)
+            .inflate(R.layout.recyclerview_add_contact_item, parent, false)
         return Holder(itemView)
     }
 

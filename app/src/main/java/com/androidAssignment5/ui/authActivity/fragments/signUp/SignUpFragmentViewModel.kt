@@ -1,4 +1,4 @@
-package com.androidAssignment5.ui.authActivity
+package com.androidAssignment5.ui.authActivity.fragments.signUp
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -6,8 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.androidAssignment5.App
-import com.androidAssignment5.data.remote.RegisterRequest
-import com.androidAssignment5.data.remote.RegisterResponse
+import com.androidAssignment5.data.remote.requests.RegisterRequest
+import com.androidAssignment5.data.remote.responses.RegisterResponse
 import kotlinx.coroutines.launch
 
 class SignUpFragmentViewModel(private val app: Application) : AndroidViewModel(app) {

@@ -1,4 +1,4 @@
-package com.androidAssignment5.data.remote
+package com.androidAssignment5.data.remote.responses
 
 import com.androidAssignment5.model.Contact
 
