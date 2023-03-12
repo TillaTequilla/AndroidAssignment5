@@ -24,6 +24,7 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>(FragmentAuthBinding::infl
         super.onViewCreated(view, savedInstanceState)
         getDataFromStore()
         println("123")
+        println("123")
         listenerInitialization()
     }
 
