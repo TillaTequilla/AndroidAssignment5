@@ -6,6 +6,7 @@ data class LoginResponse(
     val status: String,
     val code: Int,
     val message: String?,
+    val errorCode:String?,
     val data: AuthorizeResponseBody
 )
 
